@@ -3,52 +3,49 @@ package br.com.ifba.curso.controller;
 import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.curso.service.CursoIService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.stereotype.Controller;
 
-//aqui temos a camada responsável por fazer a ponte entre a View (telas) e a camada de Service
-@RestController
-@RequestMapping("/curso")
-public class CursoController {
+// Camada Controller, que faz a comunicação entre a camada View e a camada Service.
+@Controller
+public class CursoController implements CursoIController {
 
-    // aqui é instância da camada Service, que contém as regras de negócio, porem agora sem acoplamento
+    // Injeta o Service, onde ficam as regras de negócio.
     @Autowired
     private CursoIService service;
 
-    @PostMapping
-    public Curso save(@RequestBody Curso curso) {
+    @Override
+    public Curso save(Curso curso) {
         return service.save(curso);
     }
 
-    @PutMapping
-    public Curso update(@RequestBody Curso curso) {
+    @Override
+    public Curso update(Curso curso) {
         return service.update(curso);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        Curso curso = service.findById(id);
+    @Override
+    public void delete(Curso curso) {
         service.delete(curso);
     }
 
-    @GetMapping
+    @Override
     public List<Curso> findAll() {
         return service.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Curso findById(@PathVariable Long id) {
+    @Override
+    public Curso findById(Long id) {
         return service.findById(id);
     }
 
-    @GetMapping("/nome/{name}")
-    public Curso findByName(@PathVariable String name) {
-        return service.findByName(name);
+    @Override
+    public Curso findByCodigo(String codigo) {
+        return service.findByCodigo(codigo);
     }
 
-    @GetMapping("/codigo/{codigo}")
-    public Curso findByCodigo(@PathVariable String codigo) {
-        return service.findByCodigo(codigo);
+    @Override
+    public Curso findByName(String name) {
+        return service.findByName(name);
     }
 }
