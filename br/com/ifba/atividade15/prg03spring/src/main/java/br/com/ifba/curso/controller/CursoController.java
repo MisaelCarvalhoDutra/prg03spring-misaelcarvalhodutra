@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 
-// Camada Controller, que faz a comunicação entre a camada View e a camada Service.
+// Camada Controller, que faz a comunicação entre a camada View e a camada Service
 @Controller
 public class CursoController implements CursoIController {
 
